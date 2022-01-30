@@ -19,7 +19,6 @@ kea_dhcp_ddns_config:
     tsig-keys: []
     forward-ddns: {}
     reverse-ddns: {}
-  Logging:
     loggers:
       - name: kea-dhcp-ddns
         output_options:
@@ -92,10 +91,9 @@ kea_dhcp_dhcp4_config:
     # control-socket:
     #   socket-type: unix
     #   socket-name: /var/run/kea.socket
-  # Logging configuration starts here. It tells Kea servers to store
-  # all log messages (on severity INFO or more) in a file.
-  # debuglevel variable is used on DEBUG level only.
-  Logging:
+    # Logging configuration starts here. It tells Kea servers to store
+    # all log messages (on severity INFO or more) in a file.
+    # debuglevel variable is used on DEBUG level only.
     loggers:
       - name: kea-dhcp4
         output_options:
