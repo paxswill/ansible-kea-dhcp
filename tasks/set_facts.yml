@@ -52,18 +52,7 @@
       - isc-kea-dhcp4-server
       - isc-kea-dhcp6-server
   when:
-    - ansible_distribution == "Debian"
-
-- name: set_facts | Setting Kea Packages (Ubuntu)
-  set_fact:
-    kea_dhcp_packages:
-      - kea-admin
-      - kea-dhcp-ddns-server
-      - kea-dhcp4-server
-      - kea-dhcp6-server
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version is version('18.04', '<')
+    - ansible_os_family == "Debian"
 
 - name: set_facts | Setting Kea Packages (Ubuntu)
   set_fact:
@@ -93,33 +82,7 @@
       - name: isc-kea-dhcp6-server
         enabled: "{{ kea_dhcp_service_state['ipv6']|bool }}"
   when:
-    - ansible_distribution == "Debian"
-
-- name: set_facts | Setting Services Facts (Ubuntu)
-  set_fact:
-    kea_dhcp_services:
-      - name: kea-dhcp-ddns-server
-        enabled: "{{ kea_dhcp_service_state['ddns']|bool }}"
-      - name: kea-dhcp4-server
-        enabled: "{{ kea_dhcp_service_state['ipv4']|bool }}"
-      - name: kea-dhcp6-server
-        enabled: "{{ kea_dhcp_service_state['ipv6']|bool }}"
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version is version('18.04', '<')
-
-- name: set_facts | Setting Services Facts (Ubuntu)
-  set_fact:
-    kea_dhcp_services:
-      - name: isc-kea-dhcp-ddns-server
-        enabled: "{{ kea_dhcp_service_state['ddns']|bool }}"
-      - name: isc-kea-dhcp4-server
-        enabled: "{{ kea_dhcp_service_state['ipv4']|bool }}"
-      - name: isc-kea-dhcp6-server
-        enabled: "{{ kea_dhcp_service_state['ipv6']|bool }}"
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version is version('18.04', '>=')
+    - ansible_os_family == "Debian"
 
 - name: set_facts | Setting Services Facts (RedHat)
   set_fact:
