@@ -54,17 +54,6 @@
   when:
     - ansible_os_family == "Debian"
 
-- name: set_facts | Setting Kea Packages (Ubuntu)
-  set_fact:
-    kea_dhcp_packages:
-      - isc-kea-admin
-      - isc-kea-dhcp-ddns-server
-      - isc-kea-dhcp4-server
-      - isc-kea-dhcp6-server
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version is version('18.04', '>=')
-
 - name: set_facts | Setting Kea Packages (RedHat)
   set_fact:
     kea_dhcp_packages:
