@@ -24,7 +24,7 @@
 
 - name: set_facts | Setting Repo Base Path
   set_fact:
-    kea_dhcp_base_url: "{{ kea_dhcp_repo_prefix }}/kea-{{ kea_dhcp_version|replace('.', '_') }}"
+    kea_dhcp_base_url: "{{ kea_dhcp_repo_prefix }}/kea-{{ kea_dhcp_version|replace('.', '-') }}"
 
 - name: set_facts | Setting GPG Key URL
   set_fact:
