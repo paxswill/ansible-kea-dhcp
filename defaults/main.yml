@@ -113,6 +113,15 @@ kea_dhcp_dhcp4_config:
 # Defines primary domain name of environment
 kea_dhcp_pri_domain_name: vagrant.local
 
-kea_dhcp_repos: https://dl.cloudsmith.io/public/isc
+kea_dhcp_repo_prefix: https://dl.cloudsmith.io/public/isc
 
-kea_dhcp_version: 1.7
+# GPG key fingerprints used to sign the ISC repos
+kea_dhcp_key_fingerprint:
+  "1.6": 0607E2621F1564A6
+  "1.7": 40544590508A17DE
+  "1.8": 4DD5AE28ADA7268E
+  "1.9": 5DC67B0A74E30739
+  "2.0": 8029D4AFA58CBB5E
+  "2.1": 32D53EC4807EC10E
+
+kea_dhcp_version: "2.0"

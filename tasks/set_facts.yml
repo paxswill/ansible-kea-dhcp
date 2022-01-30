@@ -22,31 +22,27 @@
   when:
     - ansible_os_family == "RedHat"
 
-- name: set_facts | Setting Repo Info (Debian)
+- name: set_facts | Setting Repo Base Path
   set_fact:
-    kea_dhcp_repo: "{{ 'deb '+kea_dhcp_repos+'/kea-1-6/deb/'+ansible_distribution|lower+' '+ansible_distribution_release|lower+' main' }}"
-    kea_dhcp_repo_key: "{{ kea_dhcp_repos+'/kea-1-6/cfg/gpg/gpg.0607E2621F1564A6.key' }}"
-  when:
-    - ansible_os_family == "Debian"
-    - kea_dhcp_version is version('1.6', '>=')
-    - kea_dhcp_version is version('1.7', '<')
+    kea_dhcp_base_url: "{{ kea_dhcp_repo_prefix }}/kea-{{ kea_dhcp_version|replace('.', '_') }}"
+
+- name: set_facts | Setting GPG Key URL
+  set_fact:
+    kea_dhcp_repo_key: >-
+      {{
+        "%s/cfg/gpg/gpg.%s.key" |
+        format(kea_dhcp_base_url, kea_dhcp_key_fingerprint[kea_dhcp_version])
+      }}
 
 - name: set_facts | Setting Repo Info (Debian)
   set_fact:
-    kea_dhcp_repo: "{{ 'deb '+kea_dhcp_repos+'/kea-1-7/deb/'+ansible_distribution|lower+' '+ansible_distribution_release|lower+' main' }}"
-    kea_dhcp_repo_key: "{{ kea_dhcp_repos+'/kea-1-7/cfg/gpg/gpg.40544590508A17DE.key' }}"
+    kea_dhcp_repo: >-
+      deb
+      {{ kea_dhcp_base_url }}/deb/{{ ansible_distribution|lower }}
+      {{ ansible_distribution_release|lower }}
+      main
   when:
     - ansible_os_family == "Debian"
-    - kea_dhcp_version is version('1.7', '>=')
-    - kea_dhcp_version is version('1.8', '<')
-
-- name: set_facts | Setting Repo Info (RedHat)
-  set_fact:
-    kea_dhcp_repo_key: "{{ kea_dhcp_repos+'/kea-1-7/cfg/gpg/gpg.40544590508A17DE.key' }}"
-  when:
-    - ansible_os_family == "RedHat"
-    - kea_dhcp_version is version('1.7', '>=')
-    - kea_dhcp_version is version('1.8', '<')
 
 - name: set_facts | Setting Kea Packages (Debian)
   set_fact:
